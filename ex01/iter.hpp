@@ -4,18 +4,9 @@
 #include <cstddef>
 
 template <typename T>
-void iter(T* arr, size_t length, void (*f)(T&))
+void iter(T* arr, std::size_t len, void (*func)(T&))
 {
-	for (size_t i = 0; i < length; i++)
-		f(arr[i]);
+	for (std::size_t i = 0; i < len; i++)
+		func(arr[i]);
 }
-
-// Const version
-template <typename T>
-void iter(const T* array, std::size_t length, void (*func)(const T&)) {
-	for (std::size_t i = 0; i < length; ++i) {
-		func(array[i]);
-	}
-}
-
 #endif
