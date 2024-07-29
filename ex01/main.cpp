@@ -1,80 +1,43 @@
-#include <iostream>
-#include <string>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: muhnal <muhnal@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/28 20:51:13 by muhnal            #+#    #+#             */
+/*   Updated: 2024/07/29 19:02:03 by muhnal           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "iter.hpp"
+#include <iostream>
 
-void printInt(const int& x) {
-	std::cout << x << " ";
-}
-
-void printString(const std::string& str) {
-	std::cout << str << " ";
-}
-
-class Test {
+class Awesome {
 public:
-	int value;
-	Test(int val) : value(val) {}
+  Awesome(void) : _n(42) { return; }
+  int get(void) const { return this->_n; }
+
+private:
+  int _n;
 };
 
-void printTest(const Test& t) {
-	std::cout << t.value << " ";
+std::ostream &operator<<(std::ostream &o, Awesome const &rhs) {
+  o << rhs.get();
+  return o;
+}
+
+template <typename T> void print(const T &x) {
+  std::cout << x << std::endl;
+  return;
 }
 
 int main() {
-	// Test with int array
-	int intArray[] = {1, 2, 3, 4, 5};
-	std::size_t intLength = 5;
-	iter(intArray, intLength, printInt);
-	std::cout << std::endl;
+  int tab[] = {0, 1, 2, 3, 4};
+  Awesome tab2[5];
 
-	// Test with std::string array
-	std::string strArray[] = {"Hello", "World", "Test"};
-	std::size_t strLength = 3;
-	iter(strArray, strLength, printString);
-	std::cout << std::endl;
+  iter(tab, 5, print<const int>);
+  iter(tab2, 5, print<Awesome>);
 
-	// Test with custom class array
-	Test testArray[] = {Test(10), Test(20), Test(30)};
-	std::size_t testLength = 3;
-	iter(testArray, testLength, printTest);
-	std::cout << std::endl;
-
-	// Edge cases
-	// Test with empty int array
-	int emptyIntArray[] = {};
-	std::size_t emptyIntLength = 0;
-	iter(emptyIntArray, emptyIntLength, printInt);
-	std::cout << std::endl;
-
-	// Test with single element int array
-	int singleElementIntArray[] = {42};
-	std::size_t singleElementIntLength = 1;
-	iter(singleElementIntArray, singleElementIntLength, printInt);
-	std::cout << std::endl;
-
-	// Test with empty string array
-	std::string emptyStrArray[] = {};
-	std::size_t emptyStrLength = 0;
-	iter(emptyStrArray, emptyStrLength, printString);
-	std::cout << std::endl;
-
-	// Test with single element string array
-	std::string singleElementStrArray[] = {"Single"};
-	std::size_t singleElementStrLength = 1;
-	iter(singleElementStrArray, singleElementStrLength, printString);
-	std::cout << std::endl;
-
-	// Test with empty custom class array
-	Test emptyTestArray[] = {};
-	std::size_t emptyTestLength = 0;
-	iter(emptyTestArray, emptyTestLength, printTest);
-	std::cout << std::endl;
-
-	// Test with single element custom class array
-	Test singleElementTestArray[] = {Test(99)};
-	std::size_t singleElementTestLength = 1;
-	iter(singleElementTestArray, singleElementTestLength, printTest);
-	std::cout << std::endl;
-
-	return 0;
+  return 0;
 }
